@@ -41,17 +41,13 @@ public class FoodResourses {
     public Uni<List<Food>> get() {
         return Food.listAll(Sort.by("id"));
     }
-    
+    // 名前で検索したいなら
+    // Listで一覧を返す、parameterでnameがわたってきたら検索できるようにする
+
     @GET
     @Path("/{id}")
     public Uni<Food> getSingle(Long id) {
         return Food.findById(id);
-    }
-
-    @GET
-    @Path("/{name}")
-    public Uni<List<Food>> getByName(String name) {
-        return Food.list("name", name);
     }
 
     // Update
