@@ -1,4 +1,4 @@
-package org.acme.hibernate.orm;
+package com.github.miyatano.expiration_date_manager.api;
 
 import java.net.URI;
 import java.util.List;
@@ -18,11 +18,13 @@ import io.quarkus.hibernate.reactive.panache.Panache;
 import io.quarkus.panache.common.Sort;
 import io.smallrye.mutiny.Uni;
 
-@Path("/foods")
+import com.github.miyatano.expiration_date_manager.dao.Food;
+
+@Path("/food")
 @ApplicationScoped
 @Produces("application/json")
 @Consumes("application/json")
-public class FoodsResourses {
+public class FoodResourses {
 
     @Inject
     EntityManager em;
@@ -31,7 +33,7 @@ public class FoodsResourses {
     @POST
     public Uni<Response> create(Food food) {
         return Panache.<Food>withTransaction(food::persist)
-            .onItem().transform(inserted -> Response.created(URI.create("/foods/" + inserted.id)).build());
+            .onItem().transform(inserted -> Response.created(URI.create("/food/" + inserted.id)).build());
     }
 
     // Read

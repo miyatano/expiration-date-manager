@@ -1,4 +1,4 @@
-package org.acme.hibernate.orm;
+package com.github.miyatano.expiration_date_manager.dao;
 
 import javax.persistence.Cacheable;
 import javax.persistence.Column;

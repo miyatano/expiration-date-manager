@@ -1,4 +1,4 @@
-package org.acme;
+package com.github.miyatano.expiration_date_manager;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
