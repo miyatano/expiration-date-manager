@@ -7,6 +7,7 @@ import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.transaction.Transactional;
 import javax.ws.rs.Consumes;
+import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
@@ -58,6 +59,18 @@ public class FoodResource {
         }
         em.persist(food);
         return Response.ok(food).status(201).build();
+    }
+
+    //UPDATE CODE HERE
+
+    @DELETE
+    @Path("{id}")
+    @Transactional
+    public Response delete(@PathParam Integer id) {
+        Food entity = em.getReference(Food.class, id);
+        //ダメだったとき
+        em.remove(entity);
+        return Response.status(204).build();
     }
 
     @Provider
