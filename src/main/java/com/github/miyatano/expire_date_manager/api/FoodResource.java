@@ -10,6 +10,7 @@ import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
+import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.WebApplicationException;
@@ -61,14 +62,23 @@ public class FoodResource {
         return Response.ok(food).status(201).build();
     }
 
-    //UPDATE CODE HERE
+    @PUT
+    @Path("{id}")
+    @Transactional
+    public Food update(@PathParam Integer id, Food food){
+        Food entity = em.find(Food.class, id);
+        // ダメだったとき
+        entity.setName(food.getName());
+        entity.setExpireDate(food.getExpireDate());
+        return entity;
+    }
 
     @DELETE
     @Path("{id}")
     @Transactional
     public Response delete(@PathParam Integer id) {
         Food entity = em.getReference(Food.class, id);
-        //ダメだったとき
+        // ダメだったとき
         em.remove(entity);
         return Response.status(204).build();
     }
