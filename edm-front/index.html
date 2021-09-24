@@ -8,19 +8,44 @@
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
     <script src="https://unpkg.com/vue@next"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 </head>
 <body>
     <div id="hello-vue" class="demo">
-        {{ message }}
+        {{ info }}
+        {{ data }}
     </div>
     <script>
-        const HelloVueApp = {
-            data() {
+        const HelloVueApp = ({
+            data () {
                 return {
-                message: 'Hello Vue!!'
+                data: [
+                    {
+                        "id": 3,
+                        "name": "はちみつ",
+                        "expireDate": "2022/12/01"
+                    },
+                    {
+                        "id": 2,
+                        "name": "レトルトカレー",
+                        "expireDate": "2022/01/22"
+                    },
+                    {
+                        "id": 10,
+                        "name": "レトルトカレー",
+                        "expireDate": "2023/02/02"
+                    }
+                ],
+                info: null
                 }
             }
-        }
+            ,
+            mounted () {
+                axios
+                .get('https://api.coindesk.com/v1/bpi/currentprice.json')
+                .then(response => (this.info = response))
+            }
+        })
         Vue.createApp(HelloVueApp).mount('#hello-vue')
     </script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
