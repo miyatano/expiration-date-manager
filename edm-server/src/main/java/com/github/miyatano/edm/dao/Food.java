@@ -1,4 +1,4 @@
-package com.github.miyatano.expire_date_manager.dao;
+package com.github.miyatano.edm.dao;
 
 import javax.persistence.Cacheable;
 import javax.persistence.Column;

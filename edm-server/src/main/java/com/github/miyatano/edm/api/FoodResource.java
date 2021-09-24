@@ -1,4 +1,4 @@
-package com.github.miyatano.expire_date_manager.api;
+package com.github.miyatano.edm.api;
 
 import java.util.List;
 
@@ -20,7 +20,7 @@ import javax.ws.rs.ext.Provider;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
-import com.github.miyatano.expire_date_manager.dao.Food;
+import com.github.miyatano.edm.dao.Food;
 
 import org.jboss.logging.Logger;
 import org.jboss.resteasy.annotations.jaxrs.PathParam;
