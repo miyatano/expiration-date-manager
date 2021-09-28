@@ -1,8 +1,11 @@
 <template>
   <div class="hello">
     <h1>Hello FoodIndex</h1>
-      {{ info }}
-      {{ data }}
+    <!-- {{ foods }} -->
+    <ul  v-for="food in foods" :key="food.id">
+      <li>{{ food.name }}</li>
+      <li>{{ food.expireDate }}</li>
+    </ul>
   </div>
 </template>
 
@@ -13,7 +16,7 @@ export default {
   name: 'FoodIndex',
    data () {
       return {
-      data: [
+      foods: [
           {
               "id": 3,
               "name": "はちみつ",
@@ -32,8 +35,7 @@ export default {
       ],
       info: null
       }
-  }
-  ,
+  },
   mounted () {
       axios
       .get('https://api.coindesk.com/v1/bpi/currentprice.json')
