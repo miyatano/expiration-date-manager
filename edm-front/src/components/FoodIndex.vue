@@ -16,30 +16,13 @@ export default {
   name: 'FoodIndex',
    data () {
       return {
-      foods: [
-          {
-              "id": 3,
-              "name": "はちみつ",
-              "expireDate": "2022/12/01"
-          },
-          {
-              "id": 2,
-              "name": "レトルトカレー",
-              "expireDate": "2022/01/22"
-          },
-          {
-              "id": 10,
-              "name": "レトルトカレー",
-              "expireDate": "2023/02/02"
-          }
-      ],
-      info: null
+      foods: [],
       }
   },
   mounted () {
       axios
-      .get('https://api.coindesk.com/v1/bpi/currentprice.json')
-      .then(response => (this.info = response))
+      .get('http://localhost:8080/food')
+      .then(response => (this.foods = response))
   }
 }
 </script>
