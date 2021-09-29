@@ -1,11 +1,11 @@
 <template>
   <div class="hello">
     <h1>Hello FoodIndex</h1>
-    <!-- {{ foods }} -->
     <ul  v-for="food in foods" :key="food.id">
       <li>{{ food.name }}</li>
       <li>{{ food.expireDate }}</li>
     </ul>
+    <!--ToDo: 一覧の並べ替え？ -->
   </div>
 </template>
 
@@ -16,13 +16,17 @@ export default {
   name: 'FoodIndex',
    data () {
       return {
-      foods: [],
+      foods: null,
       }
   },
   mounted () {
       axios
-      .get('http://localhost:8080/food')
-      .then(response => (this.foods = response))
+      .get('/food/')
+      .then(response => (this.foods = response.data))
+
+      // 追加？
+      // 更新？
+      // 削除？
   }
 }
 </script>
