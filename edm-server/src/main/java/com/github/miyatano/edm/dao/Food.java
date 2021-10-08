@@ -25,6 +25,9 @@ public class Food {
     private String name;
 
     private String expireDate;
+    // LocalDateTime: 現地時間系（javaの起動されたときのロケールに依存）
+    // インスタント: UNIX時間
+    // Date/カレンダー => 古いのであんまり使わない
 
     public Food() {
     }
