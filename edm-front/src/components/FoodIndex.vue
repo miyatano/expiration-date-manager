@@ -4,10 +4,12 @@
     <ul  v-for="food in foods" :key="food.id">
       <li>{{ food.name }}</li>
       <li>{{ food.expireDate }}</li>
+      <button @click="deleteFood(food.id)">DELETE THIS ITEM!</button>
       <button @click="consoleLogId(food.id)">See what happen in console.log</button>
     </ul>
-    <button @click="deleteFood">Delete id:1</button>
 
+    <h2>お試しのアイテム</h2>
+    <button @click="postSoup">スープ増えるよ :)</button>
     <button @click="increment">Up vote</button>
     <p>{{ count }}</p>
     <!--ToDo: 一覧の並べ替え？ -->
@@ -37,20 +39,36 @@ export default {
       .get('/food/')
       .then(response => (this.foods = response.data))
     },
-    deleteFood () {
+    postSoup () {
+      const item = {
+          "name":"スープ",
+          "expireDate": "2023/02/02"
+      };
       axios
-      .delete('/food/1')
+      .post('/food/', item)
+      .then(() => { this.getAll(); })
+    },
+    postFood () {
+      const item = {
+          "name":"スープ",
+          "expireDate": "2023/02/02"
+      };
+      axios
+      .post('/food/', item)
+      .then(() => { this.getAll(); })
+    },
+    deleteFood (id) {
+      axios
+      .delete(`/food/${id}`)
       .then(() => { this.getAll(); })
     }
   },
   mounted () {
-      axios
-      .get('/food/')
-      .then(response => (this.foods = response.data))
+      this.getAll();
+      console.log(this);
 
       // 追加？
       // 更新？
-      // 削除？
   }
 }
 </script>
