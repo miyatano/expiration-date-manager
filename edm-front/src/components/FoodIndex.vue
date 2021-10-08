@@ -12,6 +12,11 @@
     <button @click="postSoup">スープ増えるよ :)</button>
     <button @click="increment">Up vote</button>
     <p>{{ count }}</p>
+
+
+    <input v-model="message" placeholder="edit me" />
+    <p>Message is: {{ message }}</p>
+    <button @click="consoleLogMessage(message)">See what happen in console.log</button>
     <!--ToDo: 一覧の並べ替え？ -->
   </div>
 </template>
@@ -24,6 +29,7 @@ export default {
    data () {
       return {
         count: 4,
+        message: "",
         foods: null,
       }
   },
@@ -33,6 +39,9 @@ export default {
     },
     consoleLogId (id) {
       console.log("This item is no." + id);
+    },
+    consoleLogMessage(message) {
+      console.log(`Here is message from input: ${message}`);
     },
     getAll () {
       axios
