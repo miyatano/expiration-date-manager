@@ -8,6 +8,10 @@
       <button @click="consoleLogId(food.id)">See what happen in console.log</button>
     </ul>
 
+    <input v-model="foodName" placeholder="Food name" />
+    <input v-model="expireDate" placeholder="expire date" />
+    <button @click="postFood(foodName, expireDate)">Post</button>
+
     <h2>お試しのアイテム</h2>
     <button @click="postSoup">スープ増えるよ :)</button>
     <button @click="increment">Up vote</button>
@@ -29,7 +33,9 @@ export default {
    data () {
       return {
         count: 4,
-        message: "",
+        message: '',
+        foodName: '',
+        expireDate: '',
         foods: null,
       }
   },
@@ -57,10 +63,10 @@ export default {
       .post('/food/', item)
       .then(() => { this.getAll(); })
     },
-    postFood () {
+    postFood (foodName, expireDate) {
       const item = {
-          "name":"スープ",
-          "expireDate": "2023/02/02"
+          "name": foodName,
+          "expireDate": expireDate
       };
       axios
       .post('/food/', item)
