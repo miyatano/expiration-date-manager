@@ -21,13 +21,36 @@
               </el-form>
             </div>
             <div class="grid-content">
-              <el-table
-                :data="foods"
-                style="width: 100%"
-              >
-                <el-table-column prop="name" label="食品名" width="180" />
-                <el-table-column prop="expireDate" label="賞味期限の日付" sortable width="180" />
-                <el-table-column prop="address" label="Status" :formatter="formatter" />
+              <el-table :data="foods" style="width: 100%">
+                <el-table-column prop="expireDate" label="賞味期限" sortable width="180">
+                  <template #default="scope">
+                    <i class="el-icon-time"></i>
+                    <span style="margin-left: 10px">{{ scope.row.expireDate }}</span>
+                  </template>
+                </el-table-column>
+                <el-table-column label="食品名" width="180">
+                  <template #default="scope">
+                    <span style="margin-left: 10px">{{ scope.row.name }}</span>
+                  </template>
+                </el-table-column>
+                <el-table-column label="ステータス" width="180">
+                  <template>
+                    <span style="margin-left: 10px">賞味期限切れ</span>
+                  </template>
+                </el-table-column>
+                <el-table-column>
+                  <template #default="scope">
+                    <!-- <el-button size="mini" @click="handleEdit(scope.$index, scope.row)"
+                      >Edit</el-button
+                    > -->
+                    <el-button
+                      size="mini"
+                      type="danger"
+                      @click="deleteFood(scope.row.id)"
+                      >Delete</el-button
+                    >
+                  </template>
+                </el-table-column>
               </el-table>
             </div>
           </el-col>
@@ -69,9 +92,14 @@ export default {
       };
       axios
       .post('/food/', item)
-      .then(() => { this.getAll(); })
+      .then(() => { 
+        this.getAll();
+        this.foodName = '';
+        this.expireDate = '';
+      })
     },
     deleteFood (id) {
+      console.log(id);
       axios
       .delete(`/food/${id}`)
       .then(() => { this.getAll(); })
