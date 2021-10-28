@@ -1,5 +1,7 @@
 package com.github.miyatano.edm.dao;
 
+import java.time.LocalDate;
+
 import javax.persistence.Cacheable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -24,7 +26,8 @@ public class Food {
     @Column(length = 40)
     private String name;
 
-    private String expireDate;
+    // private String expireDate;
+    private LocalDate expireDate;
     // LocalDateTime: 現地時間系（javaの起動されたときのロケールに依存）
     // インスタント: UNIX時間
     // Date/カレンダー => 古いのであんまり使わない
@@ -32,7 +35,7 @@ public class Food {
     public Food() {
     }
 
-    public Food(String name, String expireDate) {
+    public Food(String name, LocalDate expireDate) {
         this.name = name;
         this.expireDate = expireDate;
     }
@@ -53,11 +56,11 @@ public class Food {
         this.name = name;
     }
 
-    public String getExpireDate() {
+    public LocalDate getExpireDate() {
         return expireDate;
     }
 
-    public void setExpireDate(String expireDate) {
+    public void setExpireDate(LocalDate expireDate) {
         this.expireDate = expireDate;
     }
 
