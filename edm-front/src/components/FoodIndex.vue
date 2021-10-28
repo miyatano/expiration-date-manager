@@ -15,7 +15,11 @@
                   <el-input v-model="foodName"></el-input>
                 </el-form-item>
                 <el-form-item label="賞味期限">
-                  <el-input v-model="expireDate"></el-input>
+                  <div class="block">
+                    <el-date-picker v-model="expireDate" type="date" placeholder="Pick a day">
+                    </el-date-picker>
+                  </div>
+                  <!-- <input type="date" v-model="expireDate"> -->
                 </el-form-item>
                 <el-button type="primary" @click="postFood">追加</el-button>
               </el-form>
@@ -34,8 +38,10 @@
                   </template>
                 </el-table-column>
                 <el-table-column label="ステータス" width="180">
-                  <template>
-                    <span style="margin-left: 10px">賞味期限切れ</span>
+                  <template #default="scope">
+                    <span v-if="isUneatableFood(scope.row.expireDate)">賞味期限切れ🧟</span>
+                    <span v-else-if="isAlmostDeadFood(scope.row.expireDate)">そろそろ食べて！🔥</span>
+                    <span v-else>まだ大丈夫</span>
                   </template>
                 </el-table-column>
                 <el-table-column>
@@ -55,12 +61,9 @@
             </div>
           </el-col>
         </el-row>
-
-
       </el-main>
     </el-container>
     </div>
-
     <!--ToDo: 一覧の並べ替え？ -->
   </div>
 </template>
@@ -72,7 +75,6 @@ export default {
   name: 'FoodIndex',
    data () {
       return {
-        count: 4,
         message: '',
         foodName: '',
         expireDate: '',
@@ -103,6 +105,17 @@ export default {
       axios
       .delete(`/food/${id}`)
       .then(() => { this.getAll(); })
+    },
+    isUneatableFood (date) {
+      let today = new Date();
+      let parsedDate = new Date(date);
+      return parsedDate < today;
+    },
+    isAlmostDeadFood (date) {
+      let today = new Date();
+      let parsedDate = new Date(date);
+      let dt = parsedDate.setDate(parsedDate.getDate() - 10);
+      return dt < today;
     }
   },
   mounted () {
